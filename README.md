@@ -204,7 +204,7 @@ length of test_loader 20
 
 </pre>
 #### SAMPLE IMAGES IN TRAIN LOADER
-![alt text]sample images train loader
+![Images S10/images.png](https://github.com/RajidiSahithi/Session_10/blob/main/Images%20S10/images.png)
 
 ## CNN_MODEL
 
