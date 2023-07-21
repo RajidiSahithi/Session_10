@@ -204,7 +204,7 @@ length of test_loader 20
 
 </pre>
 #### SAMPLE IMAGES IN TRAIN LOADER
-![Images S10/images.png](https://github.com/RajidiSahithi/Session_10/blob/main/Images%20S10/images.png)
+![Images S10/images.png](https://github.com/RajidiSahithi/Session_10/blob/main/Images%20S10/images.png)]
 
 ## CNN_MODEL
 
@@ -549,7 +549,7 @@ Test set:  Accuracy: 9267/10000 (92.67%)
 
 
 </pre>
-!
+![output]https://github.com/RajidiSahithi/Session_10/blob/main/Images%20S10/output.png
 # ANALYSIS:
 * Accuracy > 90% that is 91.12%
 * RF reached upto 90
