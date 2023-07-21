@@ -1,4 +1,4 @@
-# DESIGN A CNN USING DILATION CONVOLUTION AND DEPTH WISE CONVOLUTION
+# DESIGN A CNN USING DILATION CONVOLUTION AND DEPTH-WISE CONVOLUTION
 
 ## TARGET :
 * The architecture must have 
@@ -32,7 +32,7 @@ SoftMax
 </pre>
 * Use the transform -RandomCrop 32, 32 (after padding of 4) >> FlipLR >> Followed by CutOut(8, 8)
 * Batch size = 512
-* Use ADAM, and CrossEntropyLoss
+* Use ADAM and CrossEntropyLoss
 * Target Accuracy: 90%
 
 ## CONTENTS :
@@ -53,21 +53,21 @@ CIFAR-10 is an established computer-vision dataset used for object recognition. 
 
 ## IMPORTING_LIBRARIES
 Import the required libraries. 
-* NumPy is used for for numerical operations.The torch library is used to import Pytorch.
+* NumPy is used for numerical operations. The torch library is used to import Pytorch.
 * Pytorch has an nn component that is used for the abstraction of machine learning operations. 
 * The torchvision library is used so that to import the CIFAR-10 dataset. This library has many image datasets and is widely used for research. The transforms can be imported to resize the image to equal size for all the images. 
 * The optim is used train the neural Networks.
-* MATLAB libraries are imported to plot the graphs and arrange the figures with labelling
+* MATLAB libraries are imported to plot the graphs and arrange the figures with labeling
 * Albumenations are imported for Middle Man's Data Augmentation Strategy
 * cv2 is imported 
-* torch_lr_finder is imported for finding the maximum and minimum learning rate
+* torch_lr_finder is imported to find the maximum and minimum learning rate
 
 ## SET_THE_ALBUMENTATIONS
 * cv2.setNumThreads(0) sets the number of threads used by OpenCV to 0. This is done to avoid a deadlock when using OpenCV’s resize method with PyTorch’s dataloader1.
 
 * cv2.ocl.setUseOpenCL(False) disables the usage of OpenCL in OpenCV2 and is used when you want to disable the usage of OpenCL.
 
-* The  class is inherited from torchvision.datasets.CIFAR10. It overrides the __init__ and __getitem__ methods of the parent class. The __getitem__ method returns an image and its label after applying a transformation to the image3. (This is to be done while using Albumenations)
+* The  class is inherited from torchvision.datasets.CIFAR10. It overrides the __init__ and __getitem__ methods of the parent class. The __getitem__ method returns an image and its label after transforming the image3. (This is to be done while using Albumenations)
 
 
 ## DATA_AUGMENTATIONS
@@ -81,9 +81,9 @@ Syntax:
             mean = (0.4914, 0.4822, 0.4465),
             std = (0.2470, 0.2435, 0.2616), always_apply = True)
 
-Normalization is a common technique used in deep learning to scale the pixel values of an image to a standard range. This is done to ensure that the input features have similar ranges and are centered around zero. 
+Normalization is a common technique used in deep learning to scale the pixel values of an image to a standard range. This ensures that the input features have similar ranges and are centered around zero. 
 Normalization is done with respect to mean and standard Deviation.
-For CIFAR10 (RGB) will have 3 means and 3 standard devivation that is equal to 
+For CIFAR10 (RGB) will have 3 means and 3 standard deviation that is equal to 
 (0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)
 Normalize all the iamges
 Applied to training and test data
@@ -100,19 +100,19 @@ Applied only to Training data
 <pre>
 Syntax:
 A.ShiftScaleRotate (shift_limit=(-0.2,0.2), scale_limit=(-0.2,0.2), rotate_limit=(-15, 15), p=0.5)
-Randomly apply affine transforms: translate, scale and rotate the input.
+Randomly apply affine transforms: translate, scale, and rotate the input.
 
     Args:
         shift_limit ((float, float) or float): shift factor range for both height and width. If shift_limit
             is a single float value, the range will be (-shift_limit, shift_limit). Absolute values for lower and
-            upper bounds should lie in range [0, 1]. Default: (-0.0625, 0.0625).
+            upper bounds should lie in the range [0, 1]. Default: (-0.0625, 0.0625).
         scale_limit ((float, float) or float): scaling factor range. If scale_limit is a single float value, the
             range will be (-scale_limit, scale_limit). Note that the scale_limit will be biased by 1.
             If scale_limit is a tuple, like (low, high), sampling will be done from the range (1 + low, 1 + high).
             Default: (-0.1, 0.1).
         rotate_limit ((int, int) or int): rotation range. If rotate_limit is a single int value, the
             range will be (-rotate_limit, rotate_limit). Default: (-45, 45).
-        p(float): probability of applying the transform. Default: 0.5.
+        p(float): the probability of applying the transform. Default: 0.5.
 
 Applied only to Training data
 </pre>
@@ -120,7 +120,7 @@ Applied only to Training data
 <pre>
 Syntax:
     A.PadIfNeeded(min_height=36, min_width=36, p=1.0),
-PadIfNeeded is an image augmentation technique that pads the input image on all four sides if the side is less than the desired number. The desired number is specified by the min_height and min_width parameters. In this case padding is equal to 4.
+PadIfNeeded is an image augmentation technique that pads the input image on all four sides if the side is less than the desired number. The desired number is specified by the min_height and min_width parameters. In this case, padding is equal to 4.
 
 </pre>
 ### RandomCrop
@@ -128,7 +128,7 @@ PadIfNeeded is an image augmentation technique that pads the input image on all 
 Syntax:
   A.RandomCrop(height=32, width=32, always_apply = False,p=1.0),
 
-RandomCrop is an image augmentation technique that crops a random part of the input and rescales it to some size without loss of bounding boxes. The height and width parameters specify the size of the crop. In this case iamge is cropped to size 32 X 32
+RandomCrop is an image augmentation technique that crops a random part of the input and rescales it to some size without loss of bounding boxes. The height and width parameters specify the size of the crop. In this case, image is cropped to size 32 X 32
 </pre>
 ### CenterCrop
 <pre>
@@ -141,7 +141,7 @@ It crops the center square of an image with a side length of 32 pixels. The alwa
 Syntax:
  A.CoarseDropout(max_holes = 1, max_height=8, max_width=8, min_holes = 1, min_height=8, min_width=8,
                         fill_value=(0.4914, 0.4822, 0.4465), always_apply = True)
- It is similar to cutout
+ It is similar to a cutout
 
     Args:
         max_holes(int): The maximum number of rectangular regions to be masked. (for CIFAR10 Dataset its 32X32)
@@ -150,8 +150,8 @@ Syntax:
         min_holes(int): The minimum number of rectangular regions to be masked.
         min_height(int): The minimum height of the rectangular regions.
         min_width(int): The minimum width of the rectangular regions.
-        fill_value(float): The value to be filled in the masked region. It can be a tuple or a single value . 
-            It is usually equal to the mean of dataset for CIFAR10 its (0.4914, 0.4822, 0.4465)
+        fill_value(float): The value to be filled in the masked region. It can be a tuple or a single value. 
+            It is usually equal to the mean of the dataset for CIFAR10 (0.4914, 0.4822, 0.4465)
         always_apply = True - Applies to all the images
        
 Applied only to Training data 
@@ -211,7 +211,7 @@ length of test_loader 20
 #### MODEL
 <pre>
 Preparation Layer:
- This Block Contains 1 Convolution layers with Kernal Size 3X3 and Stride is 1 . (each layer has Batch Normalization, Activation Function (Relu) and Dropout)
+ This Block Contains 1 Convolution layer with Kernal Size 3X3 and Stride is 1 . (Each layer has Batch Normalization, Activation Function (Relu), and Dropout)
    (conv1): Sequential(
     (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
     (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
@@ -220,7 +220,7 @@ Preparation Layer:
 </pre>
 <pre>
 Layer 1:
-  This Block Contains 4 Convolution layers with Kernal Size 3X3 and Stride is 1 all layers and maxpooling with stride 2 and kernal size = 2
+  This Block Contains 4 Convolution layers with Kernal Size 3X3 and Stride is 1 for all layers and max-pooling with stride 2 and kernel size = 2
   
   
   (conv11): Sequential(
@@ -316,7 +316,7 @@ The test function takes the model, device, and test_loader as inputs. It perform
 * Prints out a summary of the average test loss, accuracy, and number of samples in the test set. 
 
 ## [LR_SCHEDULAR]
-The learning rate finder is a method to discover a good learning rate for most gradient based optimizers. The LRFinder method can be applied on top of every variant of the stochastic gradient descent, and most types of networks.
+The learning rate finder is a method to discover a good learning rate for most gradient-based optimizers. The LRFinder method can be applied on top of every variant of the stochastic gradient descent, and most types of networks.
 * LR FINDER SYNTAX:
 <pre>
 optimizer = optim.Adam(model.parameters(), lr=1e-3, weight_decay=1e-4)
@@ -330,9 +330,9 @@ max_lr = lr_finder.history["lr"][np.argmin(lr_finder.history["loss"], axis=0)]
 
 print("Min Loss = {}, Max LR = {}".format(min_loss, max_lr))
 </pre>
-* Always starting with maximum learning rates.
-* If Learning Rate is negative either increase the number of epochs or decrease learning rate. By decreasing the learning rate Iam not able to get 90% of accuracy. So I incresed the number of epoches in lr schedular.
-* The following LR Schedular is used the program
+* Always start with maximum learning rates.
+* If the Learning Rate is negative either increase the number of epochs or decrease the learning rate. By decreasing the learning rate I am not able to get 90% of accuracy. So I increased the number of epoches in the lr scheduler.
+* The following LR scheduler is used in the program
   ![lrfinder](https://github.com/RajidiSahithi/Session_10/blob/main/Images%20S10/LR%20Finder.png)
 <pre>
 scheduler = OneCycleLR(
@@ -350,7 +350,7 @@ scheduler = OneCycleLR(
 
 ## [RESULTS]
 
-I achieved 90% of accuracy in 24 epochs. Initially model is under fitting. As number of epochs increased it worked good.
+I achieved 90% of accuracy in 24 epochs. Initially model is underfitting. As the number of epochs increased it worked good.
 
 
 
@@ -557,7 +557,7 @@ Test set:  Accuracy: 9267/10000 (92.67%)
 * LRFinder is used to improve the accuracy and lr is varying for  every batch
 * Max Learning Rate = 0.012173827277396614 (from LR Plot) and = 0.0016906931902834009 from the schedular output
 * Suggested Learning Rate = 1.74E-03
-* Mininum Learning Rate = 1.74E-05 from finder and = 8.469995951417009e-05 from the schedular output
+* Minimum Learning Rate = 1.74E-05 from finder and = 8.469995951417009e-05 from the schedular output
   ![rf](https://github.com/RajidiSahithi/Session_10/blob/main/Images%20S10/RF%20Calculation.png)
 
 
