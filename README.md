@@ -333,6 +333,7 @@ print("Min Loss = {}, Max LR = {}".format(min_loss, max_lr))
 * Always starting with maximum learning rates.
 * If Learning Rate is negative either increase the number of epochs or decrease learning rate. By decreasing the learning rate Iam not able to get 90% of accuracy. So I incresed the number of epoches in lr schedular.
 * The following LR Schedular is used the program
+  ![lrfinder](https://github.com/RajidiSahithi/Session_10/blob/main/Images%20S10/LR%20Finder.png)
 <pre>
 scheduler = OneCycleLR(
         optimizer,
@@ -549,7 +550,7 @@ Test set:  Accuracy: 9267/10000 (92.67%)
 
 
 </pre>
-![output]https://github.com/RajidiSahithi/Session_10/blob/main/Images%20S10/output.png
+![output](https://github.com/RajidiSahithi/Session_10/blob/main/Images%20S10/output.png)
 # ANALYSIS:
 * Accuracy > 90% that is 91.12%
 * RF reached upto 90
@@ -557,6 +558,7 @@ Test set:  Accuracy: 9267/10000 (92.67%)
 * Max Learning Rate = 0.012173827277396614 (from LR Plot) and = 0.0016906931902834009 from the schedular output
 * Suggested Learning Rate = 1.74E-03
 * Mininum Learning Rate = 1.74E-05 from finder and = 8.469995951417009e-05 from the schedular output
+  ![rf](https://github.com/RajidiSahithi/Session_10/blob/main/Images%20S10/RF%20Calculation.png)
 
 
 
